@@ -386,11 +386,9 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Navbar />
-            <Header />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-4">
+        <div className="min-h-screen bg-gray-50"
+        style={{backgroundImage: "url('src/assets/Bgpattern.png')"}}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
                 <div className="md:hidden flex justify-between items-center bg-white shadow rounded-lg p-4 mb-4 sticky top-16 z-10">
                     <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center overflow-hidden">
@@ -462,27 +460,28 @@ const ProfilePage = () => {
                 <div className="flex flex-col md:flex-row gap-6">
                     <div className="hidden md:block md:w-1/3 lg:w-1/4">
                         <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-24">
-                            <div className="p-6 bg-gradient-to-r from-blue-50 to-blue-200">
-                                {/* Added Back Button */}
-                                <button
-                                    onClick={() => navigate(-1)}
-                                    className="flex items-center text-gray-800 hover:text-white mb-4 transition-colors"
-                                >
-                                    <FiArrowLeft className="mr-2" />
-                                </button>
+                        <div className="p-5 bg-gradient-to-r from-blue-50 to-gray-300">
+    {/* Larger Back Button */}
+    <button
+        onClick={() => navigate(-1)}
+        className="flex items-center text-gray-800 hover:text-white transition-colors text-lg rounded-lg"
+    >
+        <FiArrowLeft className="text-2xl" /> 
+    </button>
 
-                                <div className="flex flex-col items-center">
-                                    <div className="w-20 h-20 rounded-full bg-white shadow-inner flex items-center justify-center mb-4 overflow-hidden">
-                                        {user.profileImage ? (
-                                            <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
-                                        ) : (
-                                            <FiUser className="text-3xl text-blue-500" />
-                                        )}
-                                    </div>
-                                    <h2 className="text-lg font-semibold text-gray-800">{user.firstName} {user.lastName}</h2>
-                                    <p className="text-gray-500 text-sm">{user.email}</p>
-                                </div>
-                            </div>
+    <div className="flex flex-col items-center">
+        <div className="w-20 h-20 rounded-full bg-white shadow-inner flex items-center justify-center mb-4 overflow-hidden">
+            {user.profileImage ? (
+                <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+                <FiUser className="text-3xl text-blue-500" />
+            )}
+        </div>
+        <h2 className="text-lg font-semibold text-gray-800">{user.firstName} {user.lastName}</h2>
+        <p className="text-gray-500 text-sm">{user.email}</p>
+    </div>
+</div>
+
                             <nav className="p-4">
                                 <button
                                     onClick={() => handleNavigation('profile')}

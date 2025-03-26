@@ -11,6 +11,7 @@ import NewPassword from './pages/NewPassword';
 import SetupPage from './pages/ProfileSetupPage';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
+import ContactUs from './pages/ContactUs';
 
 const App = () => {
     return (
@@ -28,6 +29,7 @@ const App = () => {
                     <Route path='/setup' element={<SetupPage />} />
                     <Route path='/productdetails' element={<ProductDetail />}></Route>
                     <Route path='/profile' element={<Profile />}></Route>
+                    <Route path='/contact' element={<ContactUs />}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
