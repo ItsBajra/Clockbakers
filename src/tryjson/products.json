@@ -4,56 +4,64 @@
       "image": "src/assets/cakes/Black Forest Cake.png",
       "description": "A delicious black forest cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Vanila Cake",
       "image": "src/assets/cakes/Vanila Cake.png",
       "description": "A fresh Vanila Cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Opera cake",
       "image": "src/assets/cakes/Opera cake.png",
       "description": "A fresh Opera cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Cheesecake oreo",
       "image": "src/assets/cakes/Cheesecake oreo.png",
       "description": "A fresh Cheesecake oreo.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Red Velvet Cake",
       "image": "src/assets/cakes/Red Velvet Cake.png",
       "description": "A rich, creamy red velvet cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Chocolate Cake",
       "image": "src/assets/cakes/Chocolate Cake.png",
       "description": "A delicious Chocolate cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Southern Strawberry Cake",
       "image": "src/assets/cakes/Southern Strawberry Cake.png",
       "description": "A delicious Southern Strawberry Cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     },
     {
       "name": "Strawberry Cake",
       "image": "src/assets/cakes/Strawberry cake.png",
       "description": "A fresh strawberry cake.",
       "originalPrice": 119,
-      "discountPrice": 100
+      "discountPrice": 100,
+      "quantity": 1
     }
   ]
   
