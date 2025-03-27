@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './pages/Home';
-import About from './pages/About';
+import About from './pages/AboutPage';
 import Shop from './pages/Shop';
 import { SignupPage } from './pages/SignupPage';
 import { LoginPage } from './pages/LoginPage';
@@ -11,6 +11,7 @@ import NewPassword from './pages/NewPassword';
 import SetupPage from './pages/ProfileSetupPage';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
+
 
 const App = () => {
     return (

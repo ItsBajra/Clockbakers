@@ -31,7 +31,7 @@ export const SetupPage = () => {
                     subtitle="Set up your account to get started"
                     buttonText="SIGNUP"
                     fields={["PHONE NUMBER", "ADDRESS"]}
-                    style="mt-[-50px]"
+                    style="mt-[-10px]"
                     center={true}
                     subtext="Please provide a secure password, your phone number, and provide your address for a seamless experience."
                 />
