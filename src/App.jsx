@@ -11,6 +11,7 @@ import NewPassword from './pages/NewPassword';
 import SetupPage from './pages/ProfileSetupPage';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
+import AdminPanel from './pages/AdminPanel';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
                     <Route path='/setup' element={<SetupPage />} />
                     <Route path='/productdetails' element={<ProductDetail />}></Route>
                     <Route path='/profile' element={<Profile />}></Route>
+                    <Route path='/admin' element={<AdminPanel/>}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
