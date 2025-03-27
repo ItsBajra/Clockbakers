@@ -17,6 +17,7 @@ const Cart = () => {
         message: ''
     });
     const [userAddress, setUserAddress] = useState('');
+    const [cartId, setCartId] = useState('');
     const navigate = useNavigate();
 
     const getUserIdFromToken = () => {
@@ -35,7 +36,7 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        const fetchCartItems = async () => {
+        const fetchCartData = async () => {
             const userId = getUserIdFromToken();
             if (!userId) {
                 setError("Please login to view your cart");
@@ -44,14 +45,21 @@ const Cart = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:8080/v1/cart?uid=${userId}`, {
+                // First get the cart ID
+                const cartIdResponse = await axios.get(`http://localhost:8080/v1/cart_id?uid=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('auth_token')}`
                     }
                 });
+                setCartId(cartIdResponse.data.cart_id);
 
-                // Assuming the response includes product details along with cart info
-                setCartItems(response.data.items || []);
+                // Then get the cart items
+                const cartResponse = await axios.get(`http://localhost:8080/v1/cart?uid=${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+                });
+                setCartItems(cartResponse.data.items || []);
             } catch (error) {
                 setError(error.response?.data?.message || "Failed to fetch cart items");
             } finally {
@@ -75,7 +83,7 @@ const Cart = () => {
             }
         };
 
-        fetchCartItems();
+        fetchCartData();
         fetchUserAddress();
     }, []);
 
@@ -119,7 +127,7 @@ const Cart = () => {
 
     const calculateTotal = () => {
         return cartItems.reduce((total, item) =>
-            total + (item.product.price * item.quantity * item.pounds), 0
+            total + (item.product.price * item.quantity), 0
         ).toFixed(2);
     };
 
@@ -139,8 +147,7 @@ const Cart = () => {
             const orderData = {
                 items: cartItems.map(item => ({
                     product_id: item.product_id,
-                    quantity: item.quantity,
-                    pounds: item.pounds
+                    quantity: item.quantity
                 })),
                 delivery_date: orderDetails.delivery_date,
                 delivery_time: orderDetails.delivery_time,
@@ -166,6 +173,7 @@ const Cart = () => {
             setTimeout(() => {
                 setCheckoutModal(false);
                 setCheckoutSuccess(false);
+                navigate('/orders');
             }, 2000);
         } catch (error) {
             console.error('Error during checkout:', error);
@@ -232,12 +240,11 @@ const Cart = () => {
                                                 <div className="flex justify-between">
                                                     <h3 className="text-lg font-medium text-gray-900 truncate">{item.product.name}</h3>
                                                     <p className="ml-4 text-lg font-semibold text-gray-900">
-                                                        ${(item.product.price * item.quantity * item.pounds).toFixed(2)}
+                                                        ${(item.product.price * item.quantity).toFixed(2)}
                                                     </p>
                                                 </div>
                                                 <div className="mt-1 text-sm text-gray-500">
-                                                    <p>Weight: {item.pounds} lb</p>
-                                                    <p>Price per lb: ${item.product.price.toFixed(2)}</p>
+                                                    <p>Price per unit: ${item.product.price.toFixed(2)}</p>
                                                 </div>
                                                 <div className="mt-3 flex items-center">
                                                     <div className="flex items-center border border-gray-300 rounded-md">
@@ -299,7 +306,6 @@ const Cart = () => {
                 </div>
             </div>
 
-            {/* Checkout Modal */}
             {checkoutModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg max-w-md w-full">
@@ -325,7 +331,7 @@ const Cart = () => {
                                             type="date"
                                             name="delivery_date"
                                             value={orderDetails.delivery_date}
-                                            onChange={(e) => setOrderDetails({...orderDetails, delivery_date: e.target.value})}
+                                            onChange={(e) => setOrderDetails({ ...orderDetails, delivery_date: e.target.value })}
                                             className="border p-2 rounded-sm w-full mt-1"
                                             min={new Date().toISOString().split('T')[0]}
                                             required
@@ -337,7 +343,7 @@ const Cart = () => {
                                         <select
                                             name="delivery_time"
                                             value={orderDetails.delivery_time}
-                                            onChange={(e) => setOrderDetails({...orderDetails, delivery_time: e.target.value})}
+                                            onChange={(e) => setOrderDetails({ ...orderDetails, delivery_time: e.target.value })}
                                             className="border p-2 rounded-sm w-full mt-1"
                                             required
                                         >
@@ -352,7 +358,7 @@ const Cart = () => {
                                         <textarea
                                             name="message"
                                             value={orderDetails.message}
-                                            onChange={(e) => setOrderDetails({...orderDetails, message: e.target.value})}
+                                            onChange={(e) => setOrderDetails({ ...orderDetails, message: e.target.value })}
                                             placeholder="Special instructions (optional)"
                                             className="border p-2 rounded-sm w-full"
                                         />

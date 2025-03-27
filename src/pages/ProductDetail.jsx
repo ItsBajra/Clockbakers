@@ -22,6 +22,7 @@ const ProductDetail = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [cartSuccess, setCartSuccess] = useState(false);
+    const [cartId, setCartId] = useState('');
 
     const getUserIdFromToken = () => {
         const token = localStorage.getItem('auth_token');
@@ -38,25 +39,42 @@ const ProductDetail = () => {
         }
     };
 
-    useEffect(() => {
-        const fetchUserAddress = async () => {
-            const userId = getUserIdFromToken();
-            if (!userId) return;
+    const fetchCartId = async (userId) => {
+        console.log(userId)
+        try {
+            const response = await axios.post(`http://localhost:8080/v1/cart_id?uid=${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+                }
+            });
 
-            try {
-                const response = await axios.get(`http://localhost:8080/v1/user/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('auth_token')}`
-                    }
-                });
-                setUserAddress(response.data.address || '');
-            } catch (error) {
-                console.error('Error fetching user address:', error);
-            }
-        };
+            setCartId(response.data.cart_id);
+            return response.data.cart_id;
+        } catch (error) {
+            console.error('Error fetching cart ID:', error);
+            throw error;
+        }
+    };
 
-        fetchUserAddress();
-    }, []);
+    // useEffect(() => {
+    //     const fetchUserAddress = async () => {
+    //         const userId = getUserIdFromToken();
+    //         if (!userId) return;
+
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/v1/user/${userId}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+    //                 }
+    //             });
+    //             setUserAddress(response.data.address || '');
+    //         } catch (error) {
+    //             console.error('Error fetching user address:', error);
+    //         }
+    //     };
+
+    //     fetchUserAddress();
+    // }, []);
 
     const handleAddToCart = async () => {
         const userId = getUserIdFromToken();
@@ -67,13 +85,18 @@ const ProductDetail = () => {
 
         try {
             setIsLoading(true);
+            setError('');
+
+            // First get or create cart ID
+            const currentCartId = cartId || await fetchCartId(userId);
+
             const cartItem = {
+                cart_id: currentCartId,
                 product_id: product.id,
-                quantity: orderDetails.quantity,
-                pounds: orderDetails.pounds
+                quantity: orderDetails.quantity
             };
 
-            await axios.post('http://localhost:8080/v1/cart', cartItem, {
+            await axios.post(`http://localhost:8080/v1/cart`, cartItem, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('auth_token')}`
                 }
@@ -118,7 +141,6 @@ const ProductDetail = () => {
     };
 
     const handleBuyNow = async () => {
-        // Validate required fields
         if (!orderDetails.delivery_date || !orderDetails.delivery_time) {
             setError('Please select delivery date and time');
             return;
@@ -141,7 +163,7 @@ const ProductDetail = () => {
                 product_id: product.id,
                 user_id: userId,
                 pounds: parseFloat(orderDetails.pounds),
-                quantity: orderDetails.quantity, // Include quantity in the request
+                quantity: orderDetails.quantity,
                 delivery_date: orderDetails.delivery_date,
                 delivery_time: orderDetails.delivery_time,
                 message: orderDetails.message,
@@ -174,7 +196,6 @@ const ProductDetail = () => {
                 className="min-h-screen flex flex-col items-center py-10 px-5 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: "url('/src/assets/Bgpattern.png')" }}
             >
-                {/* Success message for cart */}
                 {cartSuccess && (
                     <div className="fixed top-20 right-5 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg z-50">
                         <p>Item added to cart successfully!</p>
@@ -182,7 +203,6 @@ const ProductDetail = () => {
                 )}
 
                 <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Left Side - Product Image */}
                     <div className="relative flex justify-center items-center flex-col">
                         <div className="relative flex justify-center">
                             <img
@@ -202,7 +222,6 @@ const ProductDetail = () => {
                             )}
                         </div>
 
-                        {/* Description */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-2 group">
                             <div className="mt-2 text-left">
                                 <div className="flex items-center">
@@ -216,7 +235,6 @@ const ProductDetail = () => {
                         </div>
                     </div>
 
-                    {/* Right Side - Product Details */}
                     <div>
                         <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
                         <p className="text-xl text-gray-700">${product.price.toFixed(2)}</p>
@@ -236,7 +254,6 @@ const ProductDetail = () => {
                             </div>
                         </div>
 
-                        {/* Delivery Date & Time */}
                         <div className="mt-4">
                             <label className="font-semibold">Delivery Date:</label>
                             <input
@@ -295,7 +312,6 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            {/* Order Confirmation Modal */}
             {orderConfirmation && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg max-w-md w-full">
