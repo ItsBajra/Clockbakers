@@ -133,10 +133,10 @@ const ContactUs = () => {
       {/* Header Section */}
       <div className="relative w-full">
         {/* Text Header */}
-        <div className="py-4 flex flex-col md:flex-row items-center">
+        <div className="flex flex-col md:flex-row items-center">
             {/* First Column - Image aligned to the right */}
-            <div className="md:w-1/3 flex justify-end px-6">
-            <img src="src/assets/right-wheat.png" alt="Baked Items" className="w-40 md:w-56 object-cover" />
+            <div className="md:w-1/3 flex justify-end">
+            <img src="src/assets/contactus/white-wheat.png" alt="Baked Items" className="w-40 md:w-56 object-cover" />
             </div>
 
             {/* Second Column - Two sub-rows */}
@@ -162,24 +162,24 @@ const ContactUs = () => {
         {/* Card 1 */}
        
         <div className="bg-white shadow-md rounded-2xl overflow-hidden w-44 h-54 flex justify-center items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="src/assets/cakes/Opera cake.png" alt="Baking Dough" className="w-full h-full object-cover rounded-2xl" />
+            <img src="src/assets/contactus/img1.png" alt="Baking Dough" className="w-full h-full object-cover rounded-2xl" />
         </div>
         <div className="bg-white shadow-md rounded-2xl overflow-hidden w-54 h-64 flex justify-center items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="src/assets/cakes/Black Forest Cake.png" alt="Baking Dough" className="w-full h-full object-cover rounded-2xl" />
+            <img src="src/assets/contactus/img2.png" alt="Baking Dough" className="w-full h-full object-cover rounded-2xl" />
         </div>
       
 
         {/* Card 2 */}
         <div className="bg-white shadow-md rounded-2xl overflow-hidden w-64 h-84 flex justify-center items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="src/assets/cakes/Red Velvet Cake.png" alt="Decorating Cake" className="w-full h-full object-cover rounded-2xl" />
+            <img src="src/assets/contactus/img3.png" alt="Decorating Cake" className="w-full h-full object-cover rounded-2xl" />
         </div>
 
         {/* Card 3 */}
         <div className="bg-white shadow-md rounded-2xl overflow-hidden w-54 h-64 flex justify-center items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="src/assets/cakes/Vanila Cake.png" alt="Croissant & Coffee" className="w-full h-full object-cover rounded-2xl" />
+            <img src="src/assets/contactus/img4.png" alt="Croissant & Coffee" className="w-full h-full object-cover rounded-2xl" />
         </div>
         <div className="bg-white shadow-md rounded-2xl overflow-hidden w-44 h-54 flex justify-center items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-            <img src="src/assets/cakes/CupCake.png" alt="Croissant & Coffee" className="w-full h-full object-cover rounded-2xl" />
+            <img src="src/assets/contactus/img5.png" alt="Croissant & Coffee" className="w-full h-full object-cover rounded-2xl" />
         </div>
        
         </div>
@@ -189,9 +189,9 @@ const ContactUs = () => {
 
 
       {/* Contact Form Section */}
-      <div className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+      <div className="max-w-5xl mx-auto px-6 py-6 md:py-6">
         <div className="bg-transparent rounded-xl shadow-lg overflow-hidden">
-          <div className="p-8 md:p-10">
+          <div className="p-5 md:p-8">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
               Send us a message
             </h3>
