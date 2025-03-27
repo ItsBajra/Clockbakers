@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './pages/Home';
-import About from './pages/About';
+import AboutPage from './pages/AboutPage';
 import Shop from './pages/Shop';
 import { SignupPage } from './pages/SignupPage';
 import { LoginPage } from './pages/LoginPage';
@@ -20,7 +20,7 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
-                    <Route path='/about' element={<About />}></Route>
+                    <Route path='/about' element={<AboutPage />}></Route>
                     <Route path='/shop' element={<Shop />}></Route>
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/login' element={<LoginPage />} />
